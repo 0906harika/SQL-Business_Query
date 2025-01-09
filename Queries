@@ -1,0 +1,33 @@
+select * from customer_data;
+
+select * from sales_data;
+
+--Sales by category--
+
+select category,count(*) as sales from sales_data 
+group by category
+order by sales desc;
+
+--Revenue per customer--
+
+select customer_id,sum(price * quantity) as total_revenue from sales_data
+group by customer_id
+order by total_revenue desc;
+
+--Best selling categories--
+
+select category, strftime('%Y-%m',invoice_date) as sales_month, 
+count(*) as num_sales from sales_data
+group by category,sales_month
+order by num_sales desc;
+
+--Sales trend over time--
+
+select strftime('%Y-%m',invoice_date) as sale_month, 
+sum(quantity * price) as monthly_revenue
+from sales_data 
+group by sale_month
+order by sale_month;
+
+
+
